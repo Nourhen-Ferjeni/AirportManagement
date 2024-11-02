@@ -17,7 +17,7 @@ namespace AM.Infrastructure.Configurations
             builder.OwnsOne(p => p.FullName, fullName =>
             {
                 // Configuration de FirstName dans FullName
-                //
+
                 fullName.Property(fn => fn.FirstName)
                     .HasMaxLength(30)
                     .HasColumnName("PassFirstName");
