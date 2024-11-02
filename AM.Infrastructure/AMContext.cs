@@ -34,11 +34,24 @@ namespace AM.Infrastructure
         {
             modelBuilder.ApplyConfiguration(new PlaneConfiguration());
             modelBuilder.ApplyConfiguration(new FlightConfiguration());
+            modelBuilder.ApplyConfiguration(new PassengerConfiguration());
+            //Owned Type
+           // modelBuilder.Entity<Passenger>().OwnsOne(p => p.FullName);
+
             // ou cette methode sans dossier conf
             //modelBuilder.Entity<Plane>().HasKey(p => p.PlaneId);
             //modelBuilder.Entity<Plane>().ToTable("MyPlanes");
             //modelBuilder.Entity<Plane>().Property(p => p.Capacity).HasColumnName("PlaneCapacity");
             base.OnModelCreating(modelBuilder);
+        }
+
+        //pré-conventions
+        // tous datetime (date au lieu de datetime2
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+        {
+            configurationBuilder.Properties<DateTime>()
+                                .HaveColumnType("DateTime");
+            base.ConfigureConventions(configurationBuilder);
         }
     }
 }
