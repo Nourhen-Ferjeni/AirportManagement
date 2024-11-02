@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -18,7 +19,8 @@ namespace AM.ApplicationCore.Domain
 
         //Relation 1 avec Plane
         public Plane Plane { get; set; }
-        
+        [ForeignKey("Plane")]
+        public int PlaneFk { get; set; }
         // Relation * avec Passengers
         public ICollection<Passenger> Passengers { get; set; }
         public override string ToString()

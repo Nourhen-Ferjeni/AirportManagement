@@ -1,4 +1,5 @@
 ﻿using AM.ApplicationCore.Domain;
+using AM.Infrastructure.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,19 @@ namespace AM.Infrastructure
                                           Integrated Security=true;
                                           MultipleActiveResultSets=true");
             base.OnConfiguring(optionsBuilder);
+        }
+
+
+        //Configurations Fluent API
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new PlaneConfiguration());
+            modelBuilder.ApplyConfiguration(new FlightConfiguration());
+            // ou cette methode sans dossier conf
+            //modelBuilder.Entity<Plane>().HasKey(p => p.PlaneId);
+            //modelBuilder.Entity<Plane>().ToTable("MyPlanes");
+            //modelBuilder.Entity<Plane>().Property(p => p.Capacity).HasColumnName("PlaneCapacity");
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
