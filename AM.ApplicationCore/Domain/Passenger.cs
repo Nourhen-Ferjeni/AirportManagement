@@ -14,10 +14,11 @@ namespace AM.ApplicationCore.Domain
         [StringLength(7)]
         public string PassportNumber { get; set; }
 
-        [MinLength(3, ErrorMessage = "Min 3 caractères")]
-        [MaxLength(25, ErrorMessage = "Max 25 caractères")]
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        //[MinLength(3, ErrorMessage = "Min 3 caractères")]
+        //[MaxLength(25, ErrorMessage = "Max 25 caractères")]
+        //public string FirstName { get; set; }
+        //public string LastName { get; set; }
+        public FullName FullName { get; set; }
 
         [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]
@@ -33,23 +34,23 @@ namespace AM.ApplicationCore.Domain
         public ICollection<Flight> Flights { get; set; }
         public override string ToString()
         {
-            return "FirstName: " + FirstName
-                + " LastName: " + LastName
+            return "FirstName: " + FullName.FirstName
+                + " LastName: " + FullName.LastName
                 + " BirthDate: " + BirthDate;
         }
        
         public bool CheckProfile(string FirstName, string LastName, string email = null)
         {
             if (email != null)
-                return this.FirstName == FirstName && this.LastName == LastName
+                return this.FullName.FirstName == FirstName && this.FullName.LastName == LastName
                     && EmailAddress == email;
             else
-                return this.FirstName == FirstName && this.LastName == LastName;
+                return this.FullName.FirstName == FirstName && this.FullName.LastName == LastName;
 
         }
         public virtual void PassengerType()
         {
-            Console.WriteLine("I am the passenger: " + FirstName);
+            Console.WriteLine("I am the passenger: " + FullName.FirstName);
         }
 
 
