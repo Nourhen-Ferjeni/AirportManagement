@@ -30,40 +30,37 @@ namespace AM.Infrastructure
         }
 
 
-    //Configurations Fluent API
+   
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-        { 
-            modelBuilder.ApplyConfiguration(new PlaneConfiguration());
-            modelBuilder.ApplyConfiguration(new FlightConfiguration());
-            modelBuilder.ApplyConfiguration(new PassengerConfiguration());
-            //Owned Type
-<<<<<<< HEAD
-            // modelBuilder.Entity<Passenger>().OwnsOne(p => p.FullName);
-=======
-           // modelBuilder.Entity<Passenger>().OwnsOne(p => p.FullName);
->>>>>>> 3d4aad4b6af38416bb135e47324079ae543141c8
+        {
+            //Table Par Hierarchy (TPH) config (héritage mais tous dans un seul table)
+            /*modelBuilder.Entity<Passenger>()
+                          .HasDiscriminator<int>("IsTraveller")
+                          .HasValue<Passenger>(0)
+                          .HasValue<Traveller>(1)
+                          .HasValue<Staff>(2);*/
 
-            // ou cette methode sans dossier conf
-            //modelBuilder.Entity<Plane>().HasKey(p => p.PlaneId);
-            //modelBuilder.Entity<Plane>().ToTable("MyPlanes");
-            //modelBuilder.Entity<Plane>().Property(p => p.Capacity).HasColumnName("PlaneCapacity");
-
-            //Table Par Hierarchy (TPH) config
-
-
-            //modelBuilder.Entity<Passenger>()
-            //            .HasDiscriminator<int>("IsTraveller")
-            //            .HasValue<Passenger>(0)
-            //            .HasValue<Traveller>(1)
-            //            .HasValue<Staff>(2);
-
-            //Table Par Type (TPT) config
+            //Table Par Type (TPT) (des tables dif)
             modelBuilder.Entity<Staff>().ToTable("Staffs");
             modelBuilder.Entity<Traveller>().ToTable("Travellers");
 
             //Configure la clé primaire de la porteuse de données
             modelBuilder.Entity<Ticket>().HasKey(t => new { t.FlightFK, t.PassengerFK });
-            
+
+
+            //Configurations Fluent API
+            modelBuilder.ApplyConfiguration(new PlaneConfiguration());
+            modelBuilder.ApplyConfiguration(new FlightConfiguration());
+            modelBuilder.ApplyConfiguration(new PassengerConfiguration());
+            // ou cette methode sans dossier conf
+            //modelBuilder.Entity<Plane>().HasKey(p => p.PlaneId);
+            //modelBuilder.Entity<Plane>().ToTable("MyPlanes");
+            //modelBuilder.Entity<Plane>().Property(p => p.Capacity).HasColumnName("PlaneCapacity");
+
+
+            //Owned Type
+            modelBuilder.Entity<Passenger>().OwnsOne(p => p.FullName);
+
             base.OnModelCreating(modelBuilder);
         }
 
