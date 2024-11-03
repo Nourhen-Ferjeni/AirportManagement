@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,19 +30,36 @@ namespace AM.Infrastructure
         }
 
 
-        //Configurations Fluent API
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+    //Configurations Fluent API
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+        { 
             modelBuilder.ApplyConfiguration(new PlaneConfiguration());
             modelBuilder.ApplyConfiguration(new FlightConfiguration());
             modelBuilder.ApplyConfiguration(new PassengerConfiguration());
             //Owned Type
-           // modelBuilder.Entity<Passenger>().OwnsOne(p => p.FullName);
+            // modelBuilder.Entity<Passenger>().OwnsOne(p => p.FullName);
 
             // ou cette methode sans dossier conf
             //modelBuilder.Entity<Plane>().HasKey(p => p.PlaneId);
             //modelBuilder.Entity<Plane>().ToTable("MyPlanes");
             //modelBuilder.Entity<Plane>().Property(p => p.Capacity).HasColumnName("PlaneCapacity");
+
+            //Table Par Hierarchy (TPH) config
+
+
+            //modelBuilder.Entity<Passenger>()
+            //            .HasDiscriminator<int>("IsTraveller")
+            //            .HasValue<Passenger>(0)
+            //            .HasValue<Traveller>(1)
+            //            .HasValue<Staff>(2);
+
+            //Table Par Type (TPT) config
+            modelBuilder.Entity<Staff>().ToTable("Staffs");
+            modelBuilder.Entity<Traveller>().ToTable("Travellers");
+
+            //Configure la clé primaire de la porteuse de données
+            modelBuilder.Entity<Ticket>().HasKey(t => new { t.FlightFK, t.PassengerFK });
+            
             base.OnModelCreating(modelBuilder);
         }
 
