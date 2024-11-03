@@ -37,7 +37,11 @@ namespace AM.Infrastructure
             modelBuilder.ApplyConfiguration(new FlightConfiguration());
             modelBuilder.ApplyConfiguration(new PassengerConfiguration());
             //Owned Type
+<<<<<<< HEAD
             // modelBuilder.Entity<Passenger>().OwnsOne(p => p.FullName);
+=======
+           // modelBuilder.Entity<Passenger>().OwnsOne(p => p.FullName);
+>>>>>>> 3d4aad4b6af38416bb135e47324079ae543141c8
 
             // ou cette methode sans dossier conf
             //modelBuilder.Entity<Plane>().HasKey(p => p.PlaneId);

@@ -65,6 +65,14 @@ namespace AM.Infrastructure.Migrations
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("DateTime");
+<<<<<<< HEAD
+=======
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+>>>>>>> 3d4aad4b6af38416bb135e47324079ae543141c8
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
@@ -217,6 +225,7 @@ namespace AM.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("AM.ApplicationCore.Domain.Ticket", b =>
                 {
                     b.HasOne("AM.ApplicationCore.Domain.Flight", "Flight")
@@ -236,6 +245,8 @@ namespace AM.Infrastructure.Migrations
                     b.Navigation("Passenger");
                 });
 
+=======
+>>>>>>> 3d4aad4b6af38416bb135e47324079ae543141c8
             modelBuilder.Entity("FlightPassenger", b =>
                 {
                     b.HasOne("AM.ApplicationCore.Domain.Flight", null)

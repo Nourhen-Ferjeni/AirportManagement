@@ -12,8 +12,11 @@ namespace AM.ApplicationCore.Domain
         public double Prix { get; set; }
         public string Siege { get; set; }
         public Boolean VIP { get; set; }
+<<<<<<< HEAD
 
         // Relation classe association
+=======
+>>>>>>> 3d4aad4b6af38416bb135e47324079ae543141c8
         public Passenger Passenger { get; set; }
         [ForeignKey("Passenger")]
         public string PassengerFK { get; set; }
